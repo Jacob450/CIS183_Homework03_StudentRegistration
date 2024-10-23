@@ -20,6 +20,7 @@ public class AddMajor extends AppCompatActivity {
     EditText et_j_am_majorName;
     EditText et_j_am_prefix;
     Button btn_j_am_add;
+    Button btn_j_am_back;
     TextView tv_j_am_error;
     Major newMajor;
     DataBaseHelper db;
@@ -33,6 +34,7 @@ public class AddMajor extends AppCompatActivity {
         et_j_am_prefix = findViewById(R.id.et_v_am_majorprefix);
         btn_j_am_add = findViewById(R.id.btn_v_am_add);
         tv_j_am_error = findViewById(R.id.tv_v_am_error);
+        btn_j_am_back = findViewById(R.id.btn_v_am_back);
 
         tv_j_am_error.setVisibility(View.INVISIBLE);
         db = new DataBaseHelper(this);
@@ -41,8 +43,18 @@ public class AddMajor extends AppCompatActivity {
 
         newMajor = new Major();
         addNewMajor();
+        goBack();
 
 
+    }
+
+    private void goBack(){
+        btn_j_am_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AddMajor.this, MainActivity.class));
+            }
+        });
     }
 
     private void addNewMajor(){

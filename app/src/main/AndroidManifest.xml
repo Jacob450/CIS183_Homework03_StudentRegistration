@@ -13,6 +13,12 @@
         android:theme="@style/Theme.CIS183_Homework03_StudentRegistration"
         tools:targetApi="31">
         <activity
+            android:name=".StudentSearch"
+            android:exported="false" />
+        <activity
+            android:name=".DeleteStudent"
+            android:exported="false" />
+        <activity
             android:name=".AddMajor"
             android:exported="false" />
         <activity

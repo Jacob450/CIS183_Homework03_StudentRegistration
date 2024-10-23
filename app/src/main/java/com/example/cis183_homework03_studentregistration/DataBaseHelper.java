@@ -185,10 +185,39 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public void deleteStudentFromDatabase(Student s){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("DELETE FROM "+ students_table_name+" WHERE username = '"+s.getUsername()+"';");
+        db.close();
+    }
+
     public void addMajorToDatabase(Major m){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("INSERT INTO " + majors_table_name + "(majorname, prefix) VALUES ('"+m.getName()+"', '"+m.getPrefix()+"');");
         db.close();
+    }
+    //Search functions
+    public ArrayList<Student> getAllFNameLike(String fn){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Student> likeNames = new ArrayList<Student>();
+
+        String selectStatement = "SELECT username FROM " + students_table_name +" WHERE fname LIKE '"+'%'+fn+'%'+"';";
+        Cursor cursor = db.rawQuery(selectStatement, null);
+        //If there is any data in the cursor then it will add it all to the list
+        if(cursor.moveToFirst()){
+            do {
+                likeNames.add(getStudentGivenUsername(cursor.getString(0)));
+            }while(cursor.moveToNext());
+
+            return likeNames;
+        }else{
+            //If there is no cursor data it will return an empty list
+            Log.e("Error", "Could not find any fName like" + fn);
+            return likeNames;
+        }
+
+
+
     }
 
 
@@ -196,6 +225,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getReadableDatabase();
         int numRows = (int) DatabaseUtils.queryNumEntries(db, tableName);
+
 
 
         return numRows;

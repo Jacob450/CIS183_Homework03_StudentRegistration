@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     Button btn_j_addStudent;
     Button btn_j_addMajor;
+    TextView tv_j_search;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
         listView = findViewById(R.id.lv_v_studentlist);
         btn_j_addStudent = findViewById(R.id.btn_v_addstudent);
         btn_j_addMajor = findViewById(R.id.btn_v_addmajor);
+        tv_j_search = findViewById(R.id.tv_v_search);
 
          db = new DataBaseHelper(this);
 
@@ -41,11 +44,22 @@ public class MainActivity extends AppCompatActivity {
 
          fillListView();
          studentClickListener();
+         onStudentLongClickListener();
 
          logAllMajors();
          addMajorButtonListener();
+         search();
 
 
+    }
+
+    private void search(){
+        tv_j_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, StudentSearch.class));
+            }
+        });
     }
 
     private void addMajorButtonListener(){
@@ -61,6 +75,20 @@ public class MainActivity extends AppCompatActivity {
         for(Major m : db.getAllMajors()){
             Log.v("Major", m.getName());
         }
+    }
+
+    private void onStudentLongClickListener(){
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                Log.i("Clicked", "Clicked");
+                Intent deleteStudent = new Intent(MainActivity.this, DeleteStudent.class);
+                deleteStudent.putExtra("student", listOfStudents.get(i));
+                startActivity(deleteStudent);
+                return false;
+            }
+        });
     }
 
 
