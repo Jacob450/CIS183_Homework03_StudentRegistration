@@ -162,9 +162,32 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return cursor.moveToFirst();
     }
 
+    public boolean doesMajorAlreadyExist(String mn){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectStatement = "SELECT majorname FROM " + majors_table_name +" WHERE majorname = '"+mn+"';";
+
+        Cursor cursor = db.rawQuery(selectStatement, null);
+
+        //If the cursor moves to first then there is a matching username
+        //else it will return false
+        return cursor.moveToFirst();
+    }
+
+    public void updateStudent(Student s, String og){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("UPDATE " + students_table_name + " SET username = '"+s.getUsername()+"', fname = '"+s.getFname()+"', lname = '"+s.getLname()+"', email = '"+s.getEmail()+"', gpa = '"+s.getGpa()+"', majorid = '"+s.major.getID()+"' WHERE username = '"+og+"'");
+        db.close();
+    }
+
     public void addStudentToDatabase(Student s){
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("INSERT INTO " + students_table_name+ "(username, fname, lname, email, gpa, majorid) VALUES ('"+s.getUsername()+"', '"+s.getFname()+"', '"+s.getLname()+"', '"+s.getEmail()+"', '"+s.getGpa()+"', '"+s.major.getID()+"');");
+        db.close();
+    }
+
+    public void addMajorToDatabase(Major m){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("INSERT INTO " + majors_table_name + "(majorname, prefix) VALUES ('"+m.getName()+"', '"+m.getPrefix()+"');");
         db.close();
     }
 

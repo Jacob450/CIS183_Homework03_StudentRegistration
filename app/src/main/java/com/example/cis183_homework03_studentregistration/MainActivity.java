@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Student> listOfStudents;
     ListView listView;
     Button btn_j_addStudent;
+    Button btn_j_addMajor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         listView = findViewById(R.id.lv_v_studentlist);
         btn_j_addStudent = findViewById(R.id.btn_v_addstudent);
+        btn_j_addMajor = findViewById(R.id.btn_v_addmajor);
 
          db = new DataBaseHelper(this);
 
@@ -40,7 +42,25 @@ public class MainActivity extends AppCompatActivity {
          fillListView();
          studentClickListener();
 
+         logAllMajors();
+         addMajorButtonListener();
 
+
+    }
+
+    private void addMajorButtonListener(){
+        btn_j_addMajor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, AddMajor.class));
+            }
+        });
+    }
+
+    private void logAllMajors(){
+        for(Major m : db.getAllMajors()){
+            Log.v("Major", m.getName());
+        }
     }
 
 
