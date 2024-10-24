@@ -25,7 +25,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:text="Search By First Name"
+        android:text="Search By"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/et_v_ss_name"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,13 +35,13 @@
         android:id="@+id/et_v_ss_name"
         android:layout_width="197dp"
         android:layout_height="39dp"
-        android:layout_marginBottom="576dp"
+        android:layout_marginBottom="152dp"
         android:ems="10"
         android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textView25"
-        app:layout_constraintStart_toStartOf="@+id/textView25"
-        app:layout_constraintTop_toBottomOf="@+id/textView25" />
+        app:layout_constraintBottom_toTopOf="@+id/lv_ss_studentlist"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.074"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ListView
         android:id="@+id/lv_ss_studentlist"
@@ -52,4 +52,32 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+    <Spinner
+        android:id="@+id/sp_v_ss_searchtype"
+        android:layout_width="203dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/textView25"
+        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+    <SeekBar
+        android:id="@+id/sb_v_ss_gpa"
+        android:layout_width="198dp"
+        android:layout_height="22dp"
+        android:max="40"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sp_v_ss_searchtype" />
+
+    <TextView
+        android:id="@+id/tv_v_ss_gpa"
+        android:layout_width="wrap_content"
+        android:layout_height="21dp"
+        android:layout_marginEnd="4dp"
+        android:text="0"
+        app:layout_constraintEnd_toStartOf="@+id/sb_v_ss_gpa"
+        app:layout_constraintTop_toTopOf="@+id/sb_v_ss_gpa" />
 </androidx.constraintlayout.widget.ConstraintLayout>

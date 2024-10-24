@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class StudentListAdapter extends BaseAdapter {
@@ -43,12 +45,16 @@ public class StudentListAdapter extends BaseAdapter {
         TextView name = view.findViewById(R.id.tv_v_cc_name);
         TextView userName = view.findViewById(R.id.tv_v_cc_username);
         TextView major = view.findViewById(R.id.tv_v_cc_major);
+        TextView email = view.findViewById(R.id.tv_v_cc_email);
+        TextView gpa = view.findViewById(R.id.tv_v_cc_gpa);
 
         Student stu = studentList.get(i);
 
         userName.setText(stu.getUsername());
         name.setText(stu.getFname() + " " + stu.getLname());
         major.setText(stu.major.getName());
+        email.setText(stu.getEmail());
+        gpa.setText(String.valueOf(stu.getGpa()));
 
 
 

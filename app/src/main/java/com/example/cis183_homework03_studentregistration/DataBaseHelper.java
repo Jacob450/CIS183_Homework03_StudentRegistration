@@ -205,8 +205,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(selectStatement, null);
         //If there is any data in the cursor then it will add it all to the list
         if(cursor.moveToFirst()){
-            do {
-                likeNames.add(getStudentGivenUsername(cursor.getString(0)));
+
+            do {likeNames.add(getStudentGivenUsername(cursor.getString(0)));
             }while(cursor.moveToNext());
 
             return likeNames;
@@ -215,18 +215,119 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             Log.e("Error", "Could not find any fName like" + fn);
             return likeNames;
         }
-
-
-
     }
+
+    public ArrayList<Student> getAllUsernameLike(String un){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Student> likeNames = new ArrayList<Student>();
+
+        String selectStatement = "SELECT username FROM " + students_table_name +" WHERE username LIKE '"+'%'+un+'%'+"';";
+        Cursor cursor = db.rawQuery(selectStatement, null);
+        //If there is any data in the cursor then it will add it all to the list
+        if(cursor.moveToFirst()){
+
+            do {likeNames.add(getStudentGivenUsername(cursor.getString(0)));
+            }while(cursor.moveToNext());
+
+            return likeNames;
+        }else{
+            //If there is no cursor data it will return an empty list
+            Log.e("Error", "Could not find any userName like" + un);
+            return likeNames;
+        }
+    }
+
+    public ArrayList<Student> getAllLNameLike(String ln){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Student> likeNames = new ArrayList<Student>();
+
+        String selectStatement = "SELECT username FROM " + students_table_name +" WHERE lname LIKE '"+'%'+ln+'%'+"';";
+        Cursor cursor = db.rawQuery(selectStatement, null);
+        //If there is any data in the cursor then it will add it all to the list
+        if(cursor.moveToFirst()){
+
+            do {likeNames.add(getStudentGivenUsername(cursor.getString(0)));
+            }while(cursor.moveToNext());
+
+            return likeNames;
+        }else{
+            //If there is no cursor data it will return an empty list
+            Log.e("Error", "Could not find any lName like" + ln);
+            return likeNames;
+        }
+    }
+
+    public ArrayList<Student> getAllEmailLike(String e){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Student> likeNames = new ArrayList<Student>();
+
+        String selectStatement = "SELECT username FROM " + students_table_name +" WHERE email LIKE '"+'%'+e+'%'+"';";
+        Cursor cursor = db.rawQuery(selectStatement, null);
+        //If there is any data in the cursor then it will add it all to the list
+        if(cursor.moveToFirst()){
+
+            do {likeNames.add(getStudentGivenUsername(cursor.getString(0)));
+            }while(cursor.moveToNext());
+
+            return likeNames;
+        }else{
+            //If there is no cursor data it will return an empty list
+            Log.e("Error", "Could not find any email like" + e);
+            return likeNames;
+        }
+    }
+
+    public ArrayList<Student> getAllGPALike(double g){
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Student> likeNames = new ArrayList<Student>();
+
+        String selectStatement = "SELECT username FROM " + students_table_name +" WHERE gpa >='"+g+"' -.3 and gpa <= '"+g+"'+.3 ;";
+        Cursor cursor = db.rawQuery(selectStatement, null);
+        //If there is any data in the cursor then it will add it all to the list
+        if(cursor.moveToFirst()){
+
+            do {likeNames.add(getStudentGivenUsername(cursor.getString(0)));
+            }while(cursor.moveToNext());
+
+            return likeNames;
+        }else{
+            //If there is no cursor data it will return an empty list
+            Log.e("Error", "Could not find any gpa like" + g);
+            return likeNames;
+        }
+    }
+
+    public ArrayList<Student> getAllMajorLike(String m) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<Student> likeNames = new ArrayList<Student>();
+
+        String selectStatement = "SELECT username FROM " + students_table_name + " INNER JOIN " + majors_table_name + " on " + students_table_name + ".majorid = " + majors_table_name + ".majorid WHERE majorname LIKE '" + '%' + m + '%' + "';";
+        Cursor cursor = db.rawQuery(selectStatement, null);
+        //If there is any data in the cursor then it will add it all to the list
+        if (cursor.moveToFirst()) {
+
+            do {
+                likeNames.add(getStudentGivenUsername(cursor.getString(0)));
+            } while (cursor.moveToNext());
+
+            return likeNames;
+        } else {
+            //If there is no cursor data it will return an empty list
+            Log.e("Error", "Could not find any email like" + m);
+            return likeNames;
+        }
+    }
+
+
+
+
+
 
 
     public int countRecordsFromTable(String tableName)
     {
         SQLiteDatabase db = this.getReadableDatabase();
         int numRows = (int) DatabaseUtils.queryNumEntries(db, tableName);
-
-
 
         return numRows;
     }
